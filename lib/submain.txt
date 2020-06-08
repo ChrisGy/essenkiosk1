@@ -1,0 +1,112 @@
+
+class FarmHarvest {
+  String key;
+  String foodClass;
+  String price;
+  String farmerID; //this is the farmer's phone number
+  String farmLocation;
+  String img;
+  String quality;
+
+  FarmHarvest(
+      {this.foodClass,
+      this.price,
+      this.farmerID,
+      this.farmLocation,
+      this.img,
+      this.quality});
+
+  FarmHarvest.fromSnapshot(DataSnapshot snapshot)
+      : key = snapshot.key,
+        foodClass = snapshot.value['foodClass'],
+        price = snapshot.value['price'] ?? '',
+        farmerID = snapshot.value['farmerID'] ?? '',
+        farmLocation = snapshot.value['farmLocation'] ?? '',
+        img = snapshot.value['img'] ?? '',
+        quality = snapshot.value['quality'] ?? '';
+
+  toJson() {
+    return {
+      "price": price,
+      "foodClass": foodClass,
+      "farmLocation": farmLocation,
+      "farmerID":farmerID,
+      "quality":quality,
+      "img": img,
+    };
+  }
+}
+
+
+
+
+
+
+
+
+
+
+//////////////Image picker code //////////////
+import 'package:image_picker/image_picker.dart';
+
+File _image;
+
+Future chooseFile() async {    
+   await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {    
+     setState(() {    
+       _image = image;    
+     });    
+   });    
+ }
+
+
+
+
+
+
+ListView(
+          children: <Widget>[
+            ListTile(
+              onTap: () => BuyerScreenHome(),
+              leading: CircleAvatar(
+                backgroundColor: Colors.white,
+                backgroundImage: AssetImage(
+                    "assets/images/buyer_avatar.png"), // no matter how big it is, it won't overflow
+              ),
+              title: Text('Buyer'),
+            ),
+            ListTile(
+              onTap: () {
+                //proper onTap() implementation
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => TransportScreenHome()),
+                );
+              },
+              leading: CircleAvatar(
+                  backgroundColor: Colors.green,
+                  backgroundImage:
+                      AssetImage("assets/images/transport_agent.png")),
+              title: Text('Transporter'),
+            ),
+            ListTile(
+                leading: CircleAvatar(
+                    backgroundColor: Colors.green,
+                    backgroundImage:
+                        AssetImage("assets/images/call_agent.png")),
+                title: Text('Agent'),
+                onTap: () => {
+                      //proper onTap() implementation
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AgentLoginScreen()),
+                      )
+                    }),
+            //************************Testing**********************************************
+
+            //print(displayText),
+            //*******************************Testing end*******************************
+          ],
+        )

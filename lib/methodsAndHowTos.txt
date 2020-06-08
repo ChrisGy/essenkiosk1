@@ -1,0 +1,21 @@
+----------------------------
+    to send data via push;
+----------------------------
+use firebaseCRUD.dart's pushData method.
+use an instance of FarmHarvest or TransportProfile or FarmerProfile's .fromString method to convert your string set into usable form.
+
+
+
+-----------------------------------------------
+If you want to get your JSON from a url do as follows:
+-----------------------------------------------
+
+
+
+_toObject() async {
+  var url = 'YourJSONurl';
+  var httpClient  = createHttpClient();
+  var response =await httpClient.get(url);
+  Map cardInfo = JSON.decode(response.body);
+  var ci = new CardInfo.fromJson(cardInfo);
+}

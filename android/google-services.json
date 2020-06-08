@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "336941843935",
+    "firebase_url": "https://essenkiosk1.firebaseio.com",
+    "project_id": "essenkiosk1",
+    "storage_bucket": "essenkiosk1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336941843935:android:4fa5b0d10e99df412df06a",
+        "android_client_info": {
+          "package_name": "entlab.essenkiosk1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "336941843935-bj5ir4fch43ifjk3loqeuud1bi82tg0u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "entlab.essenkiosk1",
+            "certificate_hash": "9ce1d3e46bb0778c16457defeadd655a298bc2b2"
+          }
+        },
+        {
+          "client_id": "336941843935-i6n53vf232598c4c2fbiu0ssjuo1dn1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdWDoBTutb-VfakxTuaVzltrq46OFinv8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "336941843935-i6n53vf232598c4c2fbiu0ssjuo1dn1b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
