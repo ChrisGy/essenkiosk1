@@ -18,7 +18,8 @@ class AgentLoginScreen extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          appBarTheme: AppBarTheme(textTheme: TextTheme(headline6: TextStyle())),
+          appBarTheme:
+              AppBarTheme(textTheme: TextTheme(headline6: TextStyle())),
           //fontFamily: 'Georgia',
           primarySwatch: Colors.green,
           backgroundColor: Colors.transparent),
@@ -120,7 +121,7 @@ class _AgentScreenLoginState extends State<AgentScreenLogin> {
                 //proper onTap() implementation of Navigation push, or back button
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AgentScreenHome()),
+                  MaterialPageRoute(builder: (context) => ManageFarmData()),
                 );
               }
             },
@@ -182,24 +183,6 @@ class _AgentScreenLoginState extends State<AgentScreenLogin> {
       ),
       //    backgroundColor: Colors.yellow
     );
-  }
-
-  showdeta(BuildContext context) {
-    debugPrint("test fnt buyer details");
-    showModalBottomSheet(backgroundColor: Colors.transparent,
-        context: context,
-        builder: (context) {
-          return ClipRRect(clipBehavior: Clip.hardEdge,
-            //clipBehavior: Clip.hardEdge,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
-            child: Container( height: 700,//MediaQuery.of(context).size.height*0.1,
-               color: Colors.white.withOpacity(0.4),
-              padding: EdgeInsets.all(10.0),
-              child: ListView.builder(itemBuilder: (context, len)=>Text((len+1).toString())),
-            ),
-          );
-        });
   }
 }
 
@@ -323,7 +306,23 @@ class _ManageFarmDataState extends State<ManageFarmData> {
 //try{createHarvImg();}catch(e)  {harvestImage?.existsSync() ? harvestImage.deleteSync(): createHarvImg();}
 
     crud.FarmHarvest dataToSend;
-
+    void imageFunctions(){  if (super.widget.harvestImage != null) {
+      setState(() {
+        _camWidget = Container(
+          width:
+          MediaQuery.of(context).size.width * 0.8,
+          padding: EdgeInsets.symmetric(vertical: 5),
+          child: Image.file(
+            super.widget.harvestImage,
+            fit: BoxFit.cover,
+          ),
+        );
+        _captureHarvestTxt = "Re-capture Harvest";
+      });
+    } else {
+      _camWidget = Text(
+          "Image capture failed\nError: harvestImage is null");
+    }}
     return MaterialApp(
       home: Scaffold(
           key: _scaffoldKey,
@@ -362,6 +361,8 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                     hintText: "(surname), (other names)",
                     labelText: "Farmer's name",
                   ),
+                ),Divider(
+                  color: Colors.white,
                 ),
                 TextFormField(
                   controller: farmerIDController,
@@ -376,6 +377,8 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                     //hintText: "",
                     labelText: 'FarmerID/Phone *',
                   ),
+                ),Divider(
+                  color: Colors.white,
                 ),
                 TextFormField(
                   controller: foodClassController,
@@ -387,6 +390,8 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                     hintText: "Eg; Cassava, Tomato, Rice etc...",
                     labelText: 'Class of Food *',
                   ),
+                ),Divider(
+                  color: Colors.white,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
@@ -400,6 +405,8 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                     suffixText: "per kg",
                     labelText: 'Pricing per kg *',
                   ),
+                ),Divider(
+                  color: Colors.white,
                 ),
                 TextFormField(
                   controller: qualityController,
@@ -412,6 +419,8 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                     hintText: "1 (Excellent) - 5 (Poor)",
                     labelText: 'Quality Grade ',
                   ),
+                ),Divider(
+                  color: Colors.white,
                 ),
                 TextFormField(
                   controller: farmLocationController,
@@ -441,48 +450,41 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                     ),
                   ),
                 ),
+                Padding(padding:EdgeInsets.symmetric(vertical: 10)),
                 Container(
-                  child: Center(
-                      child: Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.photo_camera,
-                        size: 50,
-                        color: Colors.green,
-                      ),
+                  child: Column(
+                    children: <Widget>[Text(
+                      _captureHarvestTxt,
+                      style: TextStyle( fontSize: 18,color: Colors.green,fontWeight: FontWeight.bold),
+                    ),
+                      Center(
+                          child: Row(
+                        children: <Widget>[
+                          IconButton(icon: Icon(Icons.photo_album),iconSize: 40,
+                            // Get Harvest Image button
+                            onPressed: () async {
+                              super.widget.harvestImage = await getImage(isCam: false);
 
-                      // Get Harvest Image button
-                      RaisedButton(
-                          // Get Harvest Image button
-                          onPressed: () async {
-                            super.widget.harvestImage = await getImage();
+                              imageFunctions();
+                            },
+                            color: Colors.green,
+                          ),
 
-                            if (super.widget.harvestImage != null) {
-                              setState(() {
-                                _camWidget = Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.8,
-                                  padding: EdgeInsets.symmetric(vertical: 5),
-                                  child: Image.file(
-                                    super.widget.harvestImage,
-                                    fit: BoxFit.cover,
-                                  ),
-                                );
-                                _captureHarvestTxt = "Re-capture Harvest";
-                              });
-                            } else {
-                              _camWidget = Text(
-                                  "Image capture failed\nError: harvestImage is null");
-                            }
-                          },
-                          color: Colors.green,
-                          child: Text(
-                            _captureHarvestTxt,
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          )),
+                          // Capture Harvest Image button
+                          IconButton(icon: Icon(Icons.camera_alt),iconSize: 40,
+                              // Get Harvest Image button
+                              onPressed: () async {
+                                super.widget.harvestImage = await getImage();
+
+                              imageFunctions();
+                              },
+                              color: Colors.green,
+                              ),
+                        ],
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      )),
                     ],
-                    mainAxisAlignment: MainAxisAlignment.center,
-                  )),
+                  ),
                   padding: EdgeInsets.symmetric(vertical: 0),
                 ),
                 _camWidget,
@@ -590,10 +592,11 @@ class _ManageFarmDataState extends State<ManageFarmData> {
 }
 
 // ignore: missing_return
-Future<File> getImage() async {
+Future<File> getImage({bool isCam=true}) async {
   try {
-    File _ = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 40);
+    File _ = isCam == true? await ImagePicker.pickImage(
+        source: ImageSource.camera, imageQuality: 40) : await ImagePicker.pickImage(
+        source: ImageSource.gallery, imageQuality: 40);
     return _;
     //String fileName = path.basename(image.path);  // TODO: how to get image filename
   } catch (e) {

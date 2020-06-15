@@ -68,7 +68,7 @@ Future<String> uploadFile(File file, String pathStr) async {
 }
 
 ///////////////////////// Classes //////////////////////////
-
+//ignore:must_be_immutable
 class FarmHarvest extends StatefulWidget {
   //String key;
   String foodClass;
@@ -162,10 +162,6 @@ class FarmHarvest extends StatefulWidget {
 }
 
 class _FarmHarvestState extends State<FarmHarvest> {
-  @override
-  toString({minLevel: DiagnosticLevel.debug}) {
-    return "FarmHarvest Instance with class ${this.widget.foodClass}";
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -223,7 +219,7 @@ class _FarmHarvestState extends State<FarmHarvest> {
                               IconButton(
                                 icon: Icon(Icons.map),
                                 color: Colors.green,
-                                onPressed: () {UrlOpen.launch('http://maps.google.com/q="${this.widget.farmLocation}"');},
+                                onPressed: () {UrlOpen.launch('http://maps.google.com?q="${this.widget.farmLocation}"');},
                               ),
                               IconButton(
                                   icon: Icon(Icons.call),
@@ -257,7 +253,7 @@ class _FarmHarvestState extends State<FarmHarvest> {
                   title: "\n${this.widget.foodClass}, GHC ${this.widget.price}",
                   description:
                       "${DateTime.fromMillisecondsSinceEpoch(int.tryParse(this.widget.timeStamp ?? '0')).toString().split(" ")[0] ?? "Upload Time: N/A"}\n"
-                      "Location: ${snapshot.data ?? 'N/A'}",
+                      "Location: ${snapshot.data ?? GeoLoc.getAddressFromLatLng(snapshot.data) ?? 'N/A'}",
                   thumbnail: imagethumb,
                 );
               }),

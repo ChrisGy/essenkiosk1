@@ -1,7 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-Position _currentPosition; //coordinates as LatLng
+//Position _currentPosition; //coordinates as LatLng
 final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
 /* //some Properties
 double _currentPosition.latitude;
@@ -20,6 +20,7 @@ Future<String> getCurrentLocation() async {
 }
 
 //Convert Latitude Longitude coordinates to An address in string
+//ignore:missing_return
 Future<String> getAddressFromLatLng(String input) async {
   String ans = "N/A";
   List<String> ls = input.split(",");
