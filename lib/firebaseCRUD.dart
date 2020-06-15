@@ -162,7 +162,6 @@ class FarmHarvest extends StatefulWidget {
 }
 
 class _FarmHarvestState extends State<FarmHarvest> {
-
   @override
   Widget build(BuildContext context) {
     Image imagethumb = Image.network(
@@ -194,8 +193,12 @@ class _FarmHarvestState extends State<FarmHarvest> {
           context: context,
           builder: (context) => Column(
                 children: <Widget>[
-                  Container(alignment: Alignment.topCenter,height: 40,color: Colors.green.withOpacity(0.5),
-                      child: IconButton(iconSize: 38,
+                  Container(
+                      alignment: Alignment.topCenter,
+                      height: 40,
+                      color: Colors.green.withOpacity(0.5),
+                      child: IconButton(
+                          iconSize: 38,
                           icon: Icon(Icons.keyboard_arrow_down),
                           color: Colors.green,
                           onPressed: () {
@@ -219,17 +222,109 @@ class _FarmHarvestState extends State<FarmHarvest> {
                               IconButton(
                                 icon: Icon(Icons.map),
                                 color: Colors.green,
-                                onPressed: () {UrlOpen.launch('http://maps.google.com?q="${this.widget.farmLocation}"');},
+                                onPressed: () {
+                                  UrlOpen.launch(
+                                      'http://maps.google.com?q="${this.widget.farmLocation}"');
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.directions_car),
+                                color: Colors.green,
+                                tooltip: "Get Transporter",
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: true,
+                                      builder: (context) {
+                                        return Center(
+                                          child: Container(
+                                            height: 450,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.92,
+                                            child: Card(
+                                                child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                  Text("Nearest Transporter",
+                                                      style: TextStyle(
+                                                          fontSize: 20)),
+                                                  Image.asset(
+                                                    "assets/images/dummytran.jpg",
+                                                    fit: BoxFit.fitWidth,
+                                                    scale: 0.2,
+                                                  ),
+                                                  Text("Kia Rhino",
+                                                      style: TextStyle(
+                                                          fontSize: 20)),
+                                                  Text(
+                                                      "Driver:\t\t\t\t\t\t\t\t        Francis Ayaweh",
+                                                      style: TextStyle(
+                                                          fontSize: 20)),
+                                                  Text(
+                                                      "Gross Weight:\t\t12,000 kg\n",
+                                                      style: TextStyle(
+                                                          fontSize: 20)),
+                                                  Divider(
+                                                      color: Colors.transparent,
+                                                      thickness: 5),
+                                                  RaisedButton(
+                                                      onPressed: () {
+                                                        showDialog(
+                                                            context: context,
+                                                            child: Center(
+                                                              child: Text(
+                                                                  "Order sent!",style: TextStyle(color: Colors.white),),
+                                                            ));
+                                                      },
+                                                      child: Row(children: [
+                                                        Icon(Icons.check),
+                                                        Text("Accept",
+                                                            style: TextStyle(
+                                                                fontSize: 20))
+                                                      ])),
+                                                  Text(
+                                                      "Transporter is available")
+                                                ])),
+                                          ),
+                                        );
+                                      });
+                                },
                               ),
                               IconButton(
                                   icon: Icon(Icons.call),
                                   color: Colors.green,
-                                  onPressed: () {UrlOpen.launch("tel://${this.widget.farmerID}");}),
+                                  onPressed: () {
+                                    UrlOpen.launch(
+                                        "tel://${this.widget.farmerID}");
+                                  }),
                             ],
                           ),
-                           Container(color: Colors.white,child: ListTile(title: Text("Farmer's Name"),subtitle: Text(this.widget.farmerName!="null"? this.widget.farmerName :"Unknown"),)),
-                          Container(color: Colors.white,child: ListTile(title: Text("Quality"),subtitle: Text(this.widget.quality!="null"? "${this.widget.quality} / 5":"Unknown"),)),
-                          if(this.widget.quality!="null") Container(color: Colors.white,child: LinearProgressIndicator(value: double.tryParse(this.widget.quality))),
+                          Container(
+                              color: Colors.white,
+                              child: ListTile(
+                                title: Text("Farmer's Name"),
+                                subtitle: Text(this.widget.farmerName != "null"
+                                    ? this.widget.farmerName
+                                    : "Unknown"),
+                              )),
+                          Container(
+                              color: Colors.white,
+                              child: ListTile(
+                                title: Text("Quality"),
+                                subtitle: Text(this.widget.quality != "null"
+                                    ? "${this.widget.quality} / 5"
+                                    : "Unknown"),
+                              )),
+                          if (this.widget.quality != "null")
+                            Container(
+                                color: Colors.white,
+                                child: LinearProgressIndicator(
+                                    value:
+                                        double.tryParse(this.widget.quality))),
                         ]),
                   ),
                 ],

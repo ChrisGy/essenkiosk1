@@ -8,10 +8,18 @@ class TransportScreenHome extends StatelessWidget {
   final String helpline = "080010000"; // = Firebase.currentHelpline;
   @override
   Widget build(BuildContext context) {
-    bool isOffered = false;
+    bool isOffered = true;
 
-    Widget offerDetails = Container(child: Column(children: []));
-
+    Widget offerDetails = Center(
+        child: Column(children: [
+      Text("1 Order(s) received!", style: TextStyle(fontSize: 18)),
+      RaisedButton(
+        onPressed: () {
+          UrlOpen.launch("tel://0244542542");
+        },
+        child: Text("Accept Offer"),
+      )
+    ]));
     return MaterialApp(
         home: Scaffold(
       backgroundColor: Colors.white,
@@ -38,6 +46,7 @@ class TransportScreenHome extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text("Hi, Francis Ayaweh", style: TextStyle(fontSize: 20)),
               Image.asset("assets/images/transport_agent.png",
                   width: double.maxFinite),
 //              Text(
@@ -83,7 +92,36 @@ class TransportScreenHome extends StatelessWidget {
                   ],
                 ),
                 color: Colors.green,
-                onPressed: () => showDialog(context: context,barrierDismissible: true,builder: (context){return Container(child: Stack(children: [Image.asset("assets/images/transport_shot2.jpg")]));} ),
+                onPressed: () => showDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (context) {
+                      return Center(
+                        child: Container(
+                            height: MediaQuery.of(context).size.height * 0.65,
+                            child: Stack(fit: StackFit.expand, children: [
+                              Image.asset(
+                                "assets/images/transport_shot2.jpg",
+                                fit: BoxFit.contain,
+                              ),
+                              Center(
+                                  child: Container(
+                                      color: Colors.green.withOpacity(0.5),
+                                      height: 30,
+                                      width: 90,
+                                      child: Row(children: [
+                                        Icon(
+                                          Icons.pin_drop,
+                                          color: Colors.white,
+                                        ),
+                                        Text("harvest",
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.white))
+                                      ])))
+                            ])),
+                      );
+                    }),
                 textColor: Colors.white,
                 padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                 splashColor: Colors.white60,

@@ -417,7 +417,7 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                     border: UnderlineInputBorder(),
                     filled: true,
                     icon: Icon(Icons.grade),
-                    hintText: "1 (Excellent) - 5 (Poor)",
+                    hintText: "1 (Poor) - 5 (Excellent)",
                     labelText: 'Quality Grade ',
                   ),
                 ),Divider(

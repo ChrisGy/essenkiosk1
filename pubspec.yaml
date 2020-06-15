@@ -58,6 +58,7 @@ flutter:
     - assets/images/transport_shot2.jpg
     - assets/images/logo.png
     - assets/splash_essenkiosk.png
+    - assets/images/dummytran.jpg
   fonts:
     - family: georgia
       fonts:

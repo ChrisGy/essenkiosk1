@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart' as LaunchUrl;
-
 final dBRoot = FirebaseDatabase.instance.reference();
 //Firebase config
 void main() {
+
   runApp(new MyApp());
 }
 

@@ -26,12 +26,13 @@ class HarvestList {
 
 class MakeCall {
   List<FarmHarvest> listItems = [];
-
   Future<List<FarmHarvest>> firebaseCalls(DatabaseReference databaseReference) async {
     HarvestList harvestList;
-    DataSnapshot dataSnapshot = await databaseReference.once();
-    Map<dynamic, dynamic> jsonResponse = dataSnapshot.value['harvests'];
-
+    Query fbquery = databaseReference.child("harvests").orderByChild("quality");
+    //DataSnapshot dataSnapshot = await databaseReference.once();
+    DataSnapshot dataSnapshot = await fbquery.once();
+    Map<dynamic, dynamic> jsonResponse = dataSnapshot.value;
+print("unsorted resp "+jsonResponse.values.toList().toString());
     harvestList = new HarvestList.fromJSON(jsonResponse.values);
 
     listItems.addAll(harvestList.harvestList);
