@@ -48,10 +48,10 @@ String pushData(String path, FarmHarvest input) {
 }
 
 // ignore: missing_return
-DataSnapshot readData(String child) {
-  rootRef.child(child).once().then((DataSnapshot dataSnapShot) {
-    return dataSnapShot;
-  });
+Future<String> readData(String child) async {
+  DataSnapshot ds;
+  ds = await rootRef.child(child).once();
+  return ds.value;
 }
 
 void deleteData(String path) {

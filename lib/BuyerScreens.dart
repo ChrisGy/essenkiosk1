@@ -103,7 +103,7 @@ class BuyerScreenHomeState extends State<BuyerScreenHome> {
 
     PreferredSizeWidget searchAppBar = AppBar();
 
-    PreferredSizeWidget defAppBar = AppBar(
+    PreferredSizeWidget defAppBar = AppBar(centerTitle: true,
       backgroundColor: Colors.green,
       actions: <Widget>[
         IconButton(

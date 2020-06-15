@@ -291,6 +291,61 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Navigator.push(
                                       this.context,
                                       MaterialPageRoute(
+                                          builder: (context) => TransportScreenHome()),
+                                    );
+                                  },
+                                  child: Container(
+                                      margin:
+                                      new EdgeInsets.fromLTRB(76.0, 16.0, 16.0, 16.0),
+                                      child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text("Transporter", style: TextStyle(fontSize: 30)),
+                                            Container(
+                                                margin: new EdgeInsets.symmetric(
+                                                    vertical: 8.0),
+                                                height: 4.0,
+                                                width: 30.0,
+                                                color: Colors.green),
+                                            Text(
+                                                "View Transportation options")
+                                          ])),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white,
+                              ),
+                              margin: new EdgeInsets.symmetric(vertical: 16.0),
+                              padding: EdgeInsets.all(5),
+                              //alignment: FractionalOffset.centerLeft,
+                              child: new Image(
+                                image: new AssetImage("assets/images/transport_agent.png"),
+                                height: 82.0,
+                                width: 82.0,
+                              ),
+                            )
+                          ],
+                        ),
+                        Divider(
+                          thickness: 20,
+                          color: Colors.transparent,
+                        ),
+                        Stack(alignment: Alignment.centerLeft,
+                          children: <Widget>[
+                            Container(width: MediaQuery.of(context).size.width,height: 120,
+                              child: Card(
+                                margin: new EdgeInsets.symmetric(horizontal: 25),
+                                clipBehavior: Clip.hardEdge,
+                                elevation: 2,
+                                color: Colors.green.shade50,
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      this.context,
+                                      MaterialPageRoute(
                                           builder: (context) => AgentScreenLogin()),
                                     );
                                   },
@@ -325,61 +380,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 image: new AssetImage("assets/images/call_agent.png"),
                                 height: 62.0,
                                 width: 62.0,
-                              ),
-                            )
-                          ],
-                        ),
-                        Divider(
-                          thickness: 20,
-                          color: Colors.transparent,
-                        ),
-                        Stack(alignment: Alignment.centerLeft,
-                          children: <Widget>[
-                            Container(width: MediaQuery.of(context).size.width,height: 120,
-                              child: Card(
-                                margin: new EdgeInsets.symmetric(horizontal: 25),
-                                clipBehavior: Clip.hardEdge,
-                                elevation: 2,
-                                color: Colors.green.shade50,
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      this.context,
-                                      MaterialPageRoute(
-                                          builder: (context) => TransportScreenHome()),
-                                    );
-                                  },
-                                  child: Container(
-                                      margin:
-                                      new EdgeInsets.fromLTRB(76.0, 16.0, 16.0, 16.0),
-                                      child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("Buyer", style: TextStyle(fontSize: 30)),
-                                            Container(
-                                                margin: new EdgeInsets.symmetric(
-                                                    vertical: 8.0),
-                                                height: 4.0,
-                                                width: 30.0,
-                                                color: Colors.green),
-                                            Text(
-                                                "View Transportation options")
-                                          ])),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white,
-                              ),
-                              margin: new EdgeInsets.symmetric(vertical: 16.0),
-                              padding: EdgeInsets.all(5),
-                              //alignment: FractionalOffset.centerLeft,
-                              child: new Image(
-                                image: new AssetImage("assets/images/transport_agent.png"),
-                                height: 82.0,
-                                width: 82.0,
                               ),
                             )
                           ],

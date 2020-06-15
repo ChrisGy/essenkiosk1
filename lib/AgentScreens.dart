@@ -301,7 +301,8 @@ class _ManageFarmDataState extends State<ManageFarmData> {
 
   @override
   Widget build(BuildContext context) {
-    Set<String> objectInput;
+    //Set<String> objectInput;
+    Map<dynamic,dynamic> objectInput;
 
 //try{createHarvImg();}catch(e)  {harvestImage?.existsSync() ? harvestImage.deleteSync(): createHarvImg();}
 
@@ -338,7 +339,7 @@ class _ManageFarmDataState extends State<ManageFarmData> {
               onPressed: () => Navigator.maybePop(context),
             ),
           ),
-          body: SingleChildScrollView(
+          body: SingleChildScrollView(padding: EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               children: <Widget>[
                 Center(
@@ -499,7 +500,7 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                     //"'https://firebasestorage.googleapis.com/v0/b/essenkiosk1.appspot.com/o/harvests%2Fimages%2FdefaultHarvestImage.png?alt=media&token=a13ed895-10ac-4f11-97d1-a6d24f07ca9b'";
 
                     bool inputValid = false;
-                    objectInput = {
+               /*     objectInput = {
                       this.foodClassController.text,
                       this.priceController.text,
                       this.farmerIDController.text,
@@ -508,6 +509,16 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                       this.qualityController.text,
                       this.farmerNameController.text,
                       DateTime.now().millisecondsSinceEpoch.toString()
+                    };*/
+                    objectInput = {
+                      "price": this.priceController.text,
+                      "foodClass": this.foodClassController.text,
+                      "farmLocation": this.farmLocationController.text,
+                      "farmerID": this.farmerIDController.text,
+                      "quality": this.qualityController.text,
+                      "img": dLoadUrl,
+                      "farmerName": this.farmerNameController.text,
+                      "timeStamp": DateTime.now().millisecondsSinceEpoch.toString()
                     };
                     print(
                         "objectinput $objectInput length is ${objectInput.length}");
@@ -523,8 +534,7 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                     ));
 
                     if (inputValid && this.widget.harvestImage != null) {
-                      dataToSend = new crud.FarmHarvest.fromString(objectInput);
-
+                      dataToSend = new crud.FarmHarvest.fromJson(objectInput);
                       String pushKey = crud.pushData("harvests", dataToSend);
                       Widget dBwidget = Row(
                           crossAxisAlignment: CrossAxisAlignment.center,

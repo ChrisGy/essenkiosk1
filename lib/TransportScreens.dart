@@ -2,11 +2,16 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlOpen;
+import 'firebaseCRUD.dart' as crud;
 
 class TransportScreenHome extends StatelessWidget {
   final String helpline = "080010000"; // = Firebase.currentHelpline;
   @override
   Widget build(BuildContext context) {
+    bool isOffered = false;
+
+    Widget offerDetails = Container(child: Column(children: []));
+
     return MaterialApp(
         home: Scaffold(
       backgroundColor: Colors.white,
@@ -78,11 +83,23 @@ class TransportScreenHome extends StatelessWidget {
                   ],
                 ),
                 color: Colors.green,
-                onPressed: () => UrlOpen.launch("http://maps.google.com"),
+                onPressed: () => showDialog(context: context,barrierDismissible: true,builder: (context){return Container(child: Stack(children: [Image.asset("assets/images/transport_shot2.jpg")]));} ),
                 textColor: Colors.white,
                 padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                 splashColor: Colors.white60,
-              )
+              ),
+              Divider(color: Colors.transparent, thickness: 2),
+              Text("Pending offers:", style: TextStyle(fontSize: 21.5)),
+              Divider(color: Colors.green),
+              StreamBuilder(builder: (context, snapshot) {
+                crud
+                    .readData(
+                        "users/transport/JkS83jscm/offers/offer1/buyerPhone")
+                    .then((_) {
+                  if (_.length > 0) isOffered = true;
+                });
+                return isOffered ? offerDetails : Text("No offers Available");
+              }),
             ],
           ),
         ),
@@ -98,7 +115,7 @@ class TransportProfile {
   String truckLoadCapacityKg;
   String availabiilty; //this is the farmer's phone number
   String centralLocation;
-  String img;
+  String image;
   String truckModelName;
 
   //Set<String> set,    //automated addition. Confirm if there are no problems ******************************
@@ -108,7 +125,7 @@ class TransportProfile {
       this.truckLoadCapacityKg,
       this.availabiilty,
       this.centralLocation,
-      this.img,
+      this.image,
       this.truckModelName});
 
 /////////////////convert dataset into JSON usable by firebaseCRUD's pushData method
@@ -118,7 +135,7 @@ class TransportProfile {
     this.truckLoadCapacityKg = json['truckLoadCapacityKg'] ?? '';
     this.availabiilty = json['availabiilty'] ?? '';
     this.centralLocation = json['centralLocation'] ?? '';
-    this.img = json['picture'] ?? '';
+    this.image = json['picture'] ?? '';
     this.truckModelName = json['truckModelName'] ?? '';
   }
 
@@ -130,7 +147,7 @@ class TransportProfile {
     this.truckLoadCapacityKg = input.elementAt(1) ?? '';
     this.availabiilty = input.elementAt(2) ?? '';
     this.centralLocation = input.elementAt(3) ?? '';
-    this.img = input.elementAt(4) ?? '';
+    this.image = input.elementAt(4) ?? '';
     this.truckModelName = input.elementAt(5) ?? '';
   }
 
@@ -140,7 +157,7 @@ class TransportProfile {
         truckLoadCapacityKg = snapshot.value['truckLoadCapacityKg'] ?? '',
         availabiilty = snapshot.value['availabiilty'] ?? '',
         centralLocation = snapshot.value['centralLocation'] ?? '',
-        img = snapshot.value['img'] ?? '',
+        image = snapshot.value['image'] ?? '',
         truckModelName = snapshot.value['truckModelName'] ?? '';
 
   toJson() {
@@ -148,9 +165,9 @@ class TransportProfile {
       "truckLoadCapacityKg": truckLoadCapacityKg,
       "foodClass": transporterName,
       "centralLocation": centralLocation,
-      "farmerID": availabiilty,
+      "availability": availabiilty,
       "truckModelName": truckModelName,
-      "img": img,
+      "image": image,
     };
   }
 }

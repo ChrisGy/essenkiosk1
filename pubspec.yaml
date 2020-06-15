@@ -55,6 +55,7 @@ flutter:
     - assets/images/agent_manage_farmData.png
     - assets/images/agent_manage_userData.png
     - assets/images/transport_shot.png
+    - assets/images/transport_shot2.jpg
     - assets/images/logo.png
     - assets/splash_essenkiosk.png
   fonts:
