@@ -8,7 +8,7 @@ class TransportScreenHome extends StatelessWidget {
   final String helpline = "080010000"; // = Firebase.currentHelpline;
   @override
   Widget build(BuildContext context) {
-    bool isOffered = true;
+    bool isOffered = false;
 
     Widget offerDetails = Center(
         child: Column(children: [

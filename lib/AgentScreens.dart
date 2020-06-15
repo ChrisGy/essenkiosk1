@@ -499,7 +499,7 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                         "onPressed harvestimage is ${super.widget.harvestImage}");
                     //"'https://firebasestorage.googleapis.com/v0/b/essenkiosk1.appspot.com/o/harvests%2Fimages%2FdefaultHarvestImage.png?alt=media&token=a13ed895-10ac-4f11-97d1-a6d24f07ca9b'";
 
-                    bool inputValid = false;
+                    bool inputValid = true;
                /*     objectInput = {
                       this.foodClassController.text,
                       this.priceController.text,
@@ -528,10 +528,10 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                       inputValid = true;
                     }
 
-                    _scaffoldKey.currentState.showSnackBar(SnackBar(
+                   /* _scaffoldKey.currentState.showSnackBar(SnackBar(
                       content: Text(
                           "Error:\n Kindly provide all requirements and try again."),
-                    ));
+                    ));*/
 
                     if (inputValid && this.widget.harvestImage != null) {
                       dataToSend = new crud.FarmHarvest.fromJson(objectInput);
