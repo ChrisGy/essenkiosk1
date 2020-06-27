@@ -8,13 +8,11 @@ class TransportScreenHome extends StatelessWidget {
   final String helpline = "080010000"; // = Firebase.currentHelpline;
   @override
   Widget build(BuildContext context) {
-    bool isOffered = false;
-
     Widget offerDetails = Center(
         child: Column(children: [
-      Text("1 Order(s) received!", style: TextStyle(fontSize: 18)),
+      Text("1 Order received!", style: TextStyle(fontSize: 18)),
       RaisedButton(
-        onPressed: () {
+        onPressed: () async {
           UrlOpen.launch("tel://0244542542");
         },
         child: Text("Accept Offer"),
@@ -129,15 +127,34 @@ class TransportScreenHome extends StatelessWidget {
               Divider(color: Colors.transparent, thickness: 2),
               Text("Pending offers:", style: TextStyle(fontSize: 21.5)),
               Divider(color: Colors.green),
-              StreamBuilder(builder: (context, snapshot) {
-                crud
-                    .readData(
-                        "users/transport/JkS83jscm/offers/offer1/buyerPhone")
-                    .then((_) {
-                  if (_.length > 0) isOffered = true;
-                });
-                return isOffered ? offerDetails : Text("No offers Available");
-              }),
+              FutureBuilder<dynamic>(
+                  future: crud.readData("users/transport/JkS83jscm/isOffered"),
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return Center(
+                            child: Column(children: [
+                          Padding(
+                              padding: EdgeInsets.all(20),
+                              child: Text("Loading...")),
+                          CircularProgressIndicator()
+                        ])); break;
+                      default:
+                        /*if (!snapshot.hasData)
+                          return Center(
+                              heightFactor: 2.5,
+                              child: Text(
+                                  "This has taken longer than expected😢\nPlease wait "));*/
+                         if (snapshot.hasError)
+                          return new Text('Error: ${snapshot.error}');
+                        else {
+                          bool isOffered = snapshot.data;
+                          return isOffered
+                              ? offerDetails
+                              : Text("No offers Available");
+                        }
+                    }
+                  }),
             ],
           ),
         ),

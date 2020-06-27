@@ -21,34 +21,34 @@ StorageUploadTask getHarvestUploadTask(File input) {
 final rootRef = FirebaseDatabase.instance.reference();
 FirebaseStorage storage = new FirebaseStorage();
 
-void writeData(String mkey, String value, String path) {
+Future<void> writeData(String mkey, dynamic value, String path) async{
   //implement a push here
-  rootRef.child(path).update({
+  await rootRef.child(path).update({
     mkey: value,
   });
 }
 
 //TODO: use the existing writeData method in firebaseCRUD
-void keyPush(String pushKey, String dLoadUrl) {
-  FirebaseDatabase.instance
+Future<void> keyPush(String pushKey, String dLoadUrl) async{
+ await FirebaseDatabase.instance
       .reference()
       .child("harvests/$pushKey")
       .update({"img": dLoadUrl});
 }
 
-String pushData(String path, FarmHarvest input) {
+Future<String> pushData(String path, FarmHarvest input) async{
   //The input to pushData, "input", must be a JSON string. see class FarmHarvest. Returns push unique ID.
   final DatabaseReference pathref =
       rootRef.child(path); //or trying adding .reference()
   var pushref = pathref.push();
 
-  pushref.update(input.toJson());
+  await pushref.update(input.toJson());
   return pushref.key;
   //site: https://stackoverflow.com/questions/29140887/how-to-push-in-firebase-dart
 }
 
 // ignore: missing_return
-Future<String> readData(String child) async {
+Future<dynamic> readData(String child) async {
   DataSnapshot ds;
   ds = await rootRef.child(child).once();
   return ds.value;
@@ -272,7 +272,8 @@ class _FarmHarvestState extends State<FarmHarvest> {
                                                       color: Colors.transparent,
                                                       thickness: 5),
                                                   RaisedButton(
-                                                      onPressed: () {
+                                                      onPressed: () async{
+                                                        await writeData("isOffered", true, "users/transport/JkS83jscm");
                                                         showDialog(
                                                             context: context,
                                                             child: Center(

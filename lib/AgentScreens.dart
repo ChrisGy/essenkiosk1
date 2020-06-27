@@ -302,28 +302,29 @@ class _ManageFarmDataState extends State<ManageFarmData> {
   @override
   Widget build(BuildContext context) {
     //Set<String> objectInput;
-    Map<dynamic,dynamic> objectInput;
+    Map<dynamic, dynamic> objectInput;
 
 //try{createHarvImg();}catch(e)  {harvestImage?.existsSync() ? harvestImage.deleteSync(): createHarvImg();}
 
     crud.FarmHarvest dataToSend;
-    void imageFunctions(){  if (super.widget.harvestImage != null) {
-      setState(() {
-        _camWidget = Container(
-          width:
-          MediaQuery.of(context).size.width * 0.8,
-          padding: EdgeInsets.symmetric(vertical: 5),
-          child: Image.file(
-            super.widget.harvestImage,
-            fit: BoxFit.cover,
-          ),
-        );
-        _captureHarvestTxt = "Re-capture Harvest";
-      });
-    } else {
-      _camWidget = Text(
-          "Image capture failed\nError: harvestImage is null");
-    }}
+    void imageFunctions() {
+      if (super.widget.harvestImage != null) {
+        setState(() {
+          _camWidget = Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            padding: EdgeInsets.symmetric(vertical: 5),
+            child: Image.file(
+              super.widget.harvestImage,
+              fit: BoxFit.cover,
+            ),
+          );
+          _captureHarvestTxt = "Re-capture Harvest";
+        });
+      } else {
+        _camWidget = Text("Image capture failed\nError: harvestImage is null");
+      }
+    }
+
     return MaterialApp(
       home: Scaffold(
           key: _scaffoldKey,
@@ -339,7 +340,8 @@ class _ManageFarmDataState extends State<ManageFarmData> {
               onPressed: () => Navigator.maybePop(context),
             ),
           ),
-          body: SingleChildScrollView(padding: EdgeInsets.symmetric(horizontal: 10),
+          body: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               children: <Widget>[
                 Center(
@@ -362,7 +364,8 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                     hintText: "(surname), (other names)",
                     labelText: "Farmer's name",
                   ),
-                ),Divider(
+                ),
+                Divider(
                   color: Colors.white,
                 ),
                 TextFormField(
@@ -378,7 +381,8 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                     //hintText: "",
                     labelText: 'FarmerID/Phone *',
                   ),
-                ),Divider(
+                ),
+                Divider(
                   color: Colors.white,
                 ),
                 TextFormField(
@@ -391,7 +395,8 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                     hintText: "Eg; Cassava, Tomato, Rice etc...",
                     labelText: 'Class of Food *',
                   ),
-                ),Divider(
+                ),
+                Divider(
                   color: Colors.white,
                 ),
                 TextFormField(
@@ -406,7 +411,8 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                     suffixText: "per kg",
                     labelText: 'Pricing per kg *',
                   ),
-                ),Divider(
+                ),
+                Divider(
                   color: Colors.white,
                 ),
                 TextFormField(
@@ -420,7 +426,8 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                     hintText: "1 (Poor) - 5 (Excellent)",
                     labelText: 'Quality Grade ',
                   ),
-                ),Divider(
+                ),
+                Divider(
                   color: Colors.white,
                 ),
                 TextFormField(
@@ -451,20 +458,27 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                     ),
                   ),
                 ),
-                Padding(padding:EdgeInsets.symmetric(vertical: 10)),
+                Padding(padding: EdgeInsets.symmetric(vertical: 10)),
                 Container(
                   child: Column(
-                    children: <Widget>[Text(
-                      _captureHarvestTxt,
-                      style: TextStyle( fontSize: 18,color: Colors.green,fontWeight: FontWeight.bold),
-                    ),
+                    children: <Widget>[
+                      Text(
+                        _captureHarvestTxt,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold),
+                      ),
                       Center(
                           child: Row(
                         children: <Widget>[
-                          IconButton(icon: Icon(Icons.photo_album),iconSize: 40,
+                          IconButton(
+                            icon: Icon(Icons.photo_album),
+                            iconSize: 40,
                             // Get Harvest Image button
                             onPressed: () async {
-                              super.widget.harvestImage = await getImage(isCam: false);
+                              super.widget.harvestImage =
+                                  await getImage(isCam: false);
 
                               imageFunctions();
                             },
@@ -472,15 +486,17 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                           ),
 
                           // Capture Harvest Image button
-                          IconButton(icon: Icon(Icons.camera_alt),iconSize: 40,
-                              // Get Harvest Image button
-                              onPressed: () async {
-                                super.widget.harvestImage = await getImage();
+                          IconButton(
+                            icon: Icon(Icons.camera_alt),
+                            iconSize: 40,
+                            // Get Harvest Image button
+                            onPressed: () async {
+                              super.widget.harvestImage = await getImage();
 
                               imageFunctions();
-                              },
-                              color: Colors.green,
-                              ),
+                            },
+                            color: Colors.green,
+                          ),
                         ],
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                       )),
@@ -498,18 +514,6 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                     print(
                         "onPressed harvestimage is ${super.widget.harvestImage}");
                     //"'https://firebasestorage.googleapis.com/v0/b/essenkiosk1.appspot.com/o/harvests%2Fimages%2FdefaultHarvestImage.png?alt=media&token=a13ed895-10ac-4f11-97d1-a6d24f07ca9b'";
-
-                    bool inputValid = true;
-               /*     objectInput = {
-                      this.foodClassController.text,
-                      this.priceController.text,
-                      this.farmerIDController.text,
-                      this.farmLocationController.text,
-                      dLoadUrl, //string of HarvestImage storage location
-                      this.qualityController.text,
-                      this.farmerNameController.text,
-                      DateTime.now().millisecondsSinceEpoch.toString()
-                    };*/
                     objectInput = {
                       "price": this.priceController.text,
                       "foodClass": this.foodClassController.text,
@@ -518,24 +522,15 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                       "quality": this.qualityController.text,
                       "img": dLoadUrl,
                       "farmerName": this.farmerNameController.text,
-                      "timeStamp": DateTime.now().millisecondsSinceEpoch.toString()
+                      "timeStamp":
+                          DateTime.now().millisecondsSinceEpoch.toString() //TODO: Replace with server time
                     };
                     print(
                         "objectinput $objectInput length is ${objectInput.length}");
-                    if (objectInput.length == 8 ||
-                        (objectInput.length == 7 &&
-                            this.widget.harvestImage == null)) {
-                      inputValid = true;
-                    }
 
-                   /* _scaffoldKey.currentState.showSnackBar(SnackBar(
-                      content: Text(
-                          "Error:\n Kindly provide all requirements and try again."),
-                    ));*/
-
-                    if (inputValid && this.widget.harvestImage != null) {
+                    if (this.widget.harvestImage != null) {
                       dataToSend = new crud.FarmHarvest.fromJson(objectInput);
-                      String pushKey = crud.pushData("harvests", dataToSend);
+                      String pushKey = await crud.pushData("harvests", dataToSend);
                       Widget dBwidget = Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
@@ -545,7 +540,6 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                                 "Database successfully updated with harvest data")
                           ]);
                       List<Widget> camWidgetChildren = [dBwidget];
-
                       _camWidget = Container(
                         padding:
                             EdgeInsets.symmetric(vertical: 5, horizontal: 20),
@@ -565,14 +559,11 @@ class _ManageFarmDataState extends State<ManageFarmData> {
                         camWidgetChildren.add(upl);
                       });
 
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              content: Text("Submission successful"),
-                            );
-                          });
-                      await super.widget.harvestImage.delete();
+
+                    } else {
+                      _scaffoldKey.currentState.showSnackBar(SnackBar(
+                        content: Text("Kindly provide an image of the harvest"),
+                      ));
                     }
                   },
                   color: Colors.green,
@@ -602,11 +593,13 @@ class _ManageFarmDataState extends State<ManageFarmData> {
 }
 
 // ignore: missing_return
-Future<File> getImage({bool isCam=true}) async {
+Future<File> getImage({bool isCam = true}) async {
   try {
-    File _ = isCam == true? await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 40) : await ImagePicker.pickImage(
-        source: ImageSource.gallery, imageQuality: 40);
+    File _ = isCam == true
+        ? await ImagePicker.pickImage(
+            source: ImageSource.camera, imageQuality: 40)
+        : await ImagePicker.pickImage(
+            source: ImageSource.gallery, imageQuality: 40);
     return _;
     //String fileName = path.basename(image.path);  // TODO: how to get image filename
   } catch (e) {
