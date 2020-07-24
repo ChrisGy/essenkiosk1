@@ -34,9 +34,8 @@ class MakeCall {
     Map<dynamic, dynamic> jsonResponse = dataSnapshot.value;
 print("unsorted resp "+jsonResponse.values.toList().toString());
     harvestList = new HarvestList.fromJSON(jsonResponse.values);
-
     listItems.addAll(harvestList.harvestList);
-
+  //  listItems.sort((b, a) => a.(int.tryParse(price)).compareTo(b.price)); //TODO: replace by ranking function
     return listItems;
   }
 }
@@ -84,18 +83,20 @@ class BuyerScreenHomeState extends State<BuyerScreenHome> {
           case ConnectionState.waiting:
             return loadingHarvests;
           default:
-            if (!snapshot.hasData)
+            if (snapshot.hasError)
+            {  return new Text('Error: ${snapshot.error}\nSnapshot Data: $snapshot\nMakecall.lisitems: \n${makecall.listItems}');}
+          else  if (!snapshot.hasData)
               return emptyHarvests;
-            else if (snapshot.hasError)
-              return new Text('Error: ${snapshot.error}');
             else if (makecall.listItems.length == 0)
               return emptyHarvests;
+
             else
               return SingleChildScrollView(
                 child: Column(
                   children: makecall.listItems,
                 ),
               );
+
         }
       },
     );
